@@ -1,0 +1,34 @@
+{
+  "name": "nyc-geosupport",
+  "version": "1.0.0",
+  "description": "Node bindings for NYC DoITT's geosupport package, providing geocoding capabilities for NYC addresses.",
+  "main": "index.js",
+  "scripts": {
+    "test": "ava",
+    "postinstall": "node ./download"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thesquarefoot/nyc-geosupport.git"
+  },
+  "keywords": [
+    "nyc",
+    "geocoder",
+    "geocoding",
+    "geosupport",
+    "gis",
+    "newyork",
+    "opendata"
+  ],
+  "author": "Dan Rouse <dan.rouse@squarefoot.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/thesquarefoot/nyc-geosupport/issues"
+  },
+  "homepage": "https://github.com/thesquarefoot/nyc-geosupport#readme",
+  "dependencies": {
+    "download": "^6.2.3",
+    "ffi": "^2.2.0",
+    "proj4": "^2.4.3"
+  }
+}
