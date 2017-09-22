@@ -1,6 +1,6 @@
 {
   "name": "nyc-geosupport",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Node bindings for NYC DoITT's geosupport package, providing geocoding capabilities for NYC addresses.",
   "main": "index.js",
   "scripts": {
