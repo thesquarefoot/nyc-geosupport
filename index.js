@@ -130,7 +130,7 @@ function geocode(functionCode = '1A', params = {}, debug = false) {
 
   // Add eXtended or Wide data
   if (extendedMode) {
-    const extendedFormat = BUFFER_FORMATS[`WA2_${functionCode}${alternateMode[0]}`];
+    const extendedFormat = BUFFER_FORMATS[`WA2_${functionCode}${extendedMode[0]}`];
     if (extendedFormat) {
       outputFields = Object.assign(outputFields, readWorkArea(extendedFormat, 300, wa2));
     } else {
