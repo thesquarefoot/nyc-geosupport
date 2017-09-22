@@ -18,6 +18,19 @@ const subFormats = {
     ['entryType', 1],
     ['binStatus', 1],
     ['_filler', 3]
+  ],
+  GEO_IDENTIFIER_116: [
+    ['lowHouseNumber', 16],
+    ['highHouseNumber', 16],
+    ['boroughCode', 1],
+    ['streetCode', 5],
+    ['localGroupCode', 2],
+    ['bin', 7],
+    ['sideOfStreet', 1],
+    ['entryType', 1],
+    ['binStatus', 1],
+    ['streetName', 32],
+    ['_filler', 34]
   ]
 };
 
@@ -380,6 +393,7 @@ const formats = {
     ['lgcPointer', 1],
     ['segmentAzimuth', 3],
     ['segmentOrientation', 1],
+
     ['xCoordinateSegmentLow', 7],
     ['yCoordinateSegmentLow', 7],
     ['zCoordinateSegmentLow', 7],
@@ -504,7 +518,7 @@ const formats = {
     ['_filler', 9],
     ['listOfLGC', 8, split(2)],
     ['numberOfGeoIdentifiers', 4],
-    ['geoIdentifiers', 1113, subFormats.GEO_IDENTIFIER_53]
+    ['geoIdentifiers', 2436, subFormats.GEO_IDENTIFIER_116]
   ],
 
   WA2_AP: [ // pg 605
