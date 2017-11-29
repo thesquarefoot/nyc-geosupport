@@ -37,102 +37,68 @@
  *   Fn AP returns the building/address entrance
  */
 
-const { trim, flag, reprojectCoodinates, removePrivateValues } = require('./formatters');
-const BUFFER_FORMATS = require('./fields');
+const { createInputWorkArea, readWorkArea } = require('./workArea');
+const { reprojectCoodinates, removePrivateValues } = require('./formatters');
+const BUFFER_FORMATS = require('./formats');
+
 const libPath = `${__dirname}/source-data/version-17d_17.4/lib/libgeo.so`;
 if (!process.env.LD_LIBRARY_PATH) {
   console.log('LD_LIBRARY_PATH must be set to use the geosupport library');
   process.exit(1);
 }
-const libgeo = require('ffi').Library(libPath, {
+const ffiGeosupport = require('ffi').Library(libPath, {
   geo: [ 'void', [ 'char *', 'char *' ] ]
 });
 
-const workArea1 = new Buffer(1200);
-const workArea2 = new Buffer(19274); // Longest defined buffer allocation in the spec
-
-function createWorkArea(format, params = {}) {
-  return format.reduce(
-    (acc, [key, length]) =>
-      acc + String(params[key] || '').padEnd(length).substr(0, length), ''
-  ).toUpperCase();
-}
-
-function readWorkArea(format, initialOffset = 0, bufferString) {
-  let currentOffset = 0;
-  return format.reduce(
-    (acc, [key, length, transform = trim]) => {
-      let val = bufferString.substr(initialOffset + currentOffset, length);
-      if (Array.isArray(transform)) {
-        const recordLength = transform.reduce((acc, cur) => acc + cur[1], 0);
-        const values = [];
-        for (let i = 0; i < val.length / recordLength; i++) {
-          const substr = val.substr(i * recordLength, recordLength);
-          if (substr.trim()) {
-            values.push(readWorkArea(transform, 0, substr));
-          }
-        }
-        val = values;
-      } else {
-        val = transform(val);
-      }
-      currentOffset += length;
-      if (typeof val !== 'undefined') {
-        return Object.assign(acc, {
-          [key]: val,
-        });
-      }
-      return acc;
-    }, {}
-  );
-}
+const sharedWA1 = new Buffer(1200);
+const sharedWA2 = new Buffer(19274); // Longest defined buffer allocation in the spec
 
 function geocode(functionCode = '1A', params = {}, debug = false) {
-  workArea1.fill(' ');
-  workArea2.fill(' ');
+  sharedWA1.fill(' ');
+  sharedWA2.fill(' ');
 
   const baseFunctionCode = functionCode.replace(/(X|W)$/, '');
   const extendedMode = functionCode.match(/(X|W)$/);
-  let mode = '';
-  if (extendedMode && extendedMode[0] === 'X') {
-    mode = 'X'; // eXtended mode
-  }
+  const mode = extendedMode && extendedMode[0] === 'X' ? 'X' : '';
 
-  const inputWorkArea = createWorkArea(BUFFER_FORMATS.WA1_IN, Object.assign({
-    functionCode: baseFunctionCode,
-    mode,
-    workAreaFormat: 'C',
-    crossStreetNames: 'X'
-  }, params));
-  workArea1.write(inputWorkArea, 'utf8');
+  const inputWorkArea = createInputWorkArea(
+    BUFFER_FORMATS.WA1_IN,
+    Object.assign({
+      functionCode: baseFunctionCode,
+      mode,
+      workAreaFormat: 'C',
+      crossStreetNames: 'X'
+    }, params)
+  );
+  sharedWA1.write(inputWorkArea, 'utf8');
 
   try {
-    libgeo.geo(workArea1, workArea2);
+    ffiGeosupport.geo(sharedWA1, sharedWA2);
   } catch (err) {
-    console.error('Geosupport error', err);
+    console.error('Geosupport FFI error', err);
     return {};
   }
 
   // Update with results
-  const wa1 = workArea1.toString();
-  const wa2 = workArea2.toString();
+  const wa1 = sharedWA1.toString();
+  const wa2 = sharedWA2.toString();
   if (debug) {
     console.log('[DEBUG] WA1:', wa1.trim());
     console.log('[DEBUG] WA2:', wa2.trim());
   }
 
   // Read data out of the work area buffers
-  let outputFields = readWorkArea(BUFFER_FORMATS.WA1_OUT, 360, wa1);
+  const outputFields = readWorkArea(BUFFER_FORMATS.WA1_OUT, 360, wa1);
   const format = BUFFER_FORMATS[`WA2_${functionCode}`];
   if (format) {
-    outputFields = Object.assign(outputFields, readWorkArea(format, 0, wa2));
+    Object.assign(outputFields, readWorkArea(format, 0, wa2));
   }
 
   // Add eXtended or Wide data
   if (extendedMode) {
     const extendedFormat = BUFFER_FORMATS[`WA2_${functionCode}${extendedMode[0]}`];
     if (extendedFormat) {
-      outputFields = Object.assign(outputFields, readWorkArea(extendedFormat, 300, wa2));
+      Object.assign(outputFields, readWorkArea(extendedFormat, 300, wa2));
     } else {
       throw new Error(`No extended support for geosupport function "${functionCode}"`);
     }
