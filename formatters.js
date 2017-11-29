@@ -39,11 +39,13 @@ module.exports = {
       const yKey = key.replace('xCoordinate', 'yCoordinate');
       const x = fields[key];
       const y = fields[yKey];
-      const latLng = reproject([x, y]);
-      delete fields[key];
-      delete fields[yKey];
-      fields[key.replace('xCoordinate', 'lng')] = latLng[0];
-      fields[key.replace('xCoordinate', 'lat')] = latLng[1];
+      try {
+        const latLng = reproject([x, y]);
+        delete fields[key];
+        delete fields[yKey];
+        fields[key.replace('xCoordinate', 'lng')] = latLng[0];
+        fields[key.replace('xCoordinate', 'lat')] = latLng[1];
+      } catch (e) {}
     }
   }),
   // removes all keys beginning with an underscore
