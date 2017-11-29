@@ -2,7 +2,7 @@
  * These bindings interface with the geosupport library using
  * Character-Only Work Areas (COWs). For full documentation on the buffer
  * formats, see the official docs, which include COW tables in the appendix.
- * http://www1.nyc.gov/assets/planning/download/pdf/data-maps/open-data/upg.pdf?r=17b
+ * http://www1.nyc.gov/assets/planning/download/pdf/data-maps/open-data/upg.pdf?r=17d
  *
  * Geosupport is broken up into roughly 19 different functions, which provide
  * different input/output data. For more on these functions and their naming,
@@ -39,7 +39,7 @@
 
 const { trim, flag, reprojectCoodinates, removePrivateValues } = require('./formatters');
 const BUFFER_FORMATS = require('./fields');
-const libPath = `${__dirname}/source-data/version-17b_17.2/lib/libgeo.so`;
+const libPath = `${__dirname}/source-data/version-17d_17.4/lib/libgeo.so`;
 if (!process.env.LD_LIBRARY_PATH) {
   console.log('LD_LIBRARY_PATH must be set to use the geosupport library');
   process.exit(1);
