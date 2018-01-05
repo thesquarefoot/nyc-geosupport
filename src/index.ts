@@ -1,11 +1,10 @@
 require('dotenv').config();
 
-import { resolve } from 'path';
 import { read, write } from './work-area-io';
 import { reprojectCoordinates } from './util';
 import geosupport from './ffi';
 
-const typedefs = require(resolve('typedefs.json'));
+const typedefs = require('../typedefs.json');
 
 const defaultParams: Partial<InputWA1> = {
   platformInd: 'C',

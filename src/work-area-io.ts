@@ -1,6 +1,6 @@
-import { resolve } from 'path';
+
 import { isNotEmpty, reduceCount } from './util';
-const typedefs = require(resolve('typedefs.json'));
+const typedefs = require('../typedefs.json');
 
 export function write<T extends WorkAreaParams>(
   format: CDeclaration,
