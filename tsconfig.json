@@ -4,8 +4,7 @@
     "noImplicitAny": true,
     "preserveConstEnums": true,
     "target": "es2017",
-    "outDir": "dist",
-    "declaration": true
+    "outDir": "dist"
   },
   "include": [
     "typings/**/*",
