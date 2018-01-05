@@ -1,11 +1,11 @@
 {
   "name": "nyc-geosupport",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Node bindings for NYC DoITT's geosupport package, providing geocoding capabilities for NYC addresses.",
   "main": "dist/index.js",
   "scripts": {
     "extract-typedefs": "node ./dist/extract-typedefs --ts > typings/pac.d.ts && node ./dist/extract-typedefs --json > typedefs.json",
-    "prepublish": "tsc; npm run extract-typedefs",
+    "prepare": "tsc; npm run extract-typedefs",
     "tsc": "tsc",
     "postinstall": "node ./download"
   },
