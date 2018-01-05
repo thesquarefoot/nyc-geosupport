@@ -1,2 +1,8 @@
 source-data
+dist
+tmp
+node_modules
+
 .DS_Store
+typedefs.json
+typings/pac.d.ts

@@ -2,6 +2,40 @@
 # yarn lockfile v1
 
 
+"@types/ffi@^0.1.0":
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/@types/ffi/-/ffi-0.1.0.tgz#b3521ce9a47aea5acad4b5735d46e9edb5136f9a"
+  dependencies:
+    "@types/node" "*"
+    "@types/ref" "*"
+    "@types/ref-struct" "*"
+
+"@types/lodash.camelcase@^4.3.3":
+  version "4.3.3"
+  resolved "https://registry.yarnpkg.com/@types/lodash.camelcase/-/lodash.camelcase-4.3.3.tgz#ea5fcc4badea2259008df74425cf80d4536385fc"
+  dependencies:
+    "@types/lodash" "*"
+
+"@types/lodash@*":
+  version "4.14.92"
+  resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.92.tgz#6e3cb0b71a1e12180a47a42a744e856c3ae99a57"
+
+"@types/node@*":
+  version "8.5.2"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-8.5.2.tgz#83b8103fa9a2c2e83d78f701a9aa7c9539739aa5"
+
+"@types/ref-struct@*":
+  version "0.0.29"
+  resolved "https://registry.yarnpkg.com/@types/ref-struct/-/ref-struct-0.0.29.tgz#a2d7c113a43d1182be99a22dfca8bf94bae97afa"
+  dependencies:
+    "@types/ref" "*"
+
+"@types/ref@*":
+  version "0.0.28"
+  resolved "https://registry.yarnpkg.com/@types/ref/-/ref-0.0.28.tgz#15a61253ed1259038b47499de1c9b0cbca57f55c"
+  dependencies:
+    "@types/node" "*"
+
 base64-js@0.0.8:
   version "0.0.8"
   resolved "https://registry.yarnpkg.com/base64-js/-/base64-js-0.0.8.tgz#1101e9544f4a76b1bc3b26d452ca96d7a35e7978"
@@ -114,6 +148,10 @@ deep-extend@~0.4.0:
   version "0.4.2"
   resolved "https://registry.yarnpkg.com/deep-extend/-/deep-extend-0.4.2.tgz#48b699c27e334bf89f10892be432f6e4c7d34a7f"
 
+dotenv@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-4.0.0.tgz#864ef1379aced55ce6f95debecdce179f7a0cd1d"
+
 download@^6.2.3:
   version "6.2.3"
   resolved "https://registry.yarnpkg.com/download/-/download-6.2.3.tgz#d8d358cf4854abb1169a447c55be7072c5dc2f90"
@@ -148,9 +186,9 @@ fd-slicer@~1.0.1:
   dependencies:
     pend "~1.2.0"
 
-ffi@^2.2.0:
+"ffi@git://github.com/node-ffi/node-ffi.git#master":
   version "2.2.0"
-  resolved "https://registry.yarnpkg.com/ffi/-/ffi-2.2.0.tgz#bf18b04666a29f71227ed56895d5430af47042fa"
+  resolved "git://github.com/node-ffi/node-ffi.git#60282c29eb29eafb5d9b969b794a5ddf3e31e9d5"
   dependencies:
     bindings "~1.2.0"
     debug "2"
@@ -273,6 +311,10 @@ isurl@^1.0.0-alpha5:
   dependencies:
     has-to-string-tag-x "^1.2.0"
     is-object "^1.0.1"
+
+lodash.camelcase@^4.3.0:
+  version "4.3.0"
+  resolved "https://registry.yarnpkg.com/lodash.camelcase/-/lodash.camelcase-4.3.0.tgz#b28aa6288a2b9fc651035c7711f65ab6190331a6"
 
 lowercase-keys@^1.0.0:
   version "1.0.0"
@@ -459,6 +501,10 @@ trim-repeated@^1.0.0:
 tunnel-agent@^0.4.0:
   version "0.4.3"
   resolved "https://registry.yarnpkg.com/tunnel-agent/-/tunnel-agent-0.4.3.tgz#6373db76909fe570e08d73583365ed828a74eeeb"
+
+typescript@^2.6.2:
+  version "2.6.2"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-2.6.2.tgz#3c5b6fd7f6de0914269027f03c0946758f7673a4"
 
 unbzip2-stream@^1.0.9:
   version "1.2.4"
