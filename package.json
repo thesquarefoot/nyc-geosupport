@@ -33,11 +33,13 @@
   "dependencies": {
     "dotenv": "^4.0.0",
     "download": "^6.2.3",
+    "express": "^4.16.2",
     "ffi": "git://github.com/node-ffi/node-ffi.git#master",
     "lodash.camelcase": "^4.3.0",
     "proj4": "^2.4.3"
   },
   "devDependencies": {
+    "@types/express": "^4.11.0",
     "@types/ffi": "^0.1.0",
     "@types/lodash.camelcase": "^4.3.3",
     "dts-generator": "^2.1.0",

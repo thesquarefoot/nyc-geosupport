@@ -1,4 +1,13 @@
-require('dotenv').config();
+/**
+ * extract-typedefs.ts
+ *
+ * Reads the type definitions from geosupport's C header (/include/foruser/pac.h)
+ * Outputs JSON (default) or TypeScript definitions (run with `--ts`) to stdout
+ *
+ * The following changes are made, compared to the C types:
+ *   - Variable names are converted to camelCase
+ *   - (TS only) Nested work area structs are flattened
+ */
 
 import { readFileSync } from 'fs';
 import { resolve } from 'path';
@@ -123,7 +132,7 @@ function parseHeaderFile(path: string) {
 }
 
 function generateTSDeclaration(decl: CDeclaration, depth = 0, valueOnly = false): string {
-  const indent = ('  ' as any).repeat(depth + 1)
+  const indent = ('  ' as any).repeat(depth + 1);
   const name = decl.name;
   if (name.match(/^filler\d+$/)) return '';
   let type = decl.type;
@@ -164,16 +173,17 @@ function convertKeysToCamelcase(typedefs: CDeclarationIndex) {
   });
 }
 
-const typedefs = parseHeaderFile(resolve(process.env.GEOSUPPORT_DATA_PATH, 'include', 'foruser', 'pac.h'));
-convertKeysToCamelcase(typedefs);
-
-export default typedefs;
-
 if (!module.parent) {
+  require('dotenv').config();
+  const typedefs = parseHeaderFile(resolve(process.env.GEOSUPPORT_DATA_PATH, 'include', 'foruser', 'pac.h'));
+  convertKeysToCamelcase(typedefs);
+
   const outputTS = process.argv.find(arg => arg.toLowerCase() === '--ts');
   if (outputTS) {
     console.log(generateTypescript(typedefs));
   } else {
     console.log(JSON.stringify(typedefs, null, 2));
   }
+} else {
+  throw new Error('extract-typedefs should be called directly');
 }

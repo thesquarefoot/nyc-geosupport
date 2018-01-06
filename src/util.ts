@@ -40,21 +40,23 @@ const coordinateKeys = [
   /seg_(from|to)_xyz/,
   /coord/,
 ];
-export function reprojectCoordinates(fields: WorkAreaParams): void {
-  Object.keys(fields).forEach(key => {
-    if (Array.isArray(fields[key]) && coordinateKeys.reduce((acc, reg) => acc || !!reg.test(key), false)) {
+const isCoordinateKey = (key: string) => coordinateKeys.reduce((acc, reg) => acc || !!reg.test(key), false);
+export function reprojectCoordinates(fields: WorkAreaParams): WorkAreaParams {
+  return Object.keys(fields).reduce((acc, key) => {
+    if (Array.isArray(fields[key]) && isCoordinateKey(key)) {
       for (let i = 0; i < fields[key].length; i += 2) {
         const x = parseInt(fields[key][i]);
         const y = parseInt(fields[key][i + 1]);
         try {
           const latLng = reproject([x, y]);
-          fields[key][i] = latLng[1];
-          fields[key][i + 1] = latLng[0];
+          acc[key][i] = latLng[1];
+          acc[key][i + 1] = latLng[0];
         } catch (e) {
         }
       }
     } else if (typeof fields[key] === 'object') {
-      reprojectCoordinates(fields[key]);
+      acc[key] = reprojectCoordinates(fields[key]);
     }
-  });
+    return acc;
+  }, { ...fields });
 }

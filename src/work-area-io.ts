@@ -1,10 +1,16 @@
-
 import { isNotEmpty, reduceCount } from './util';
 const typedefs = require('../typedefs.json');
 
+/**
+ * @name write
+ * @description Creates a string in the provided format using params to populate its keys
+ * @param params Object with params to get written at their defined offset
+ * @param format Struct type definition
+ * @param debug Log details to stdout
+ */
 export function write<T extends WorkAreaParams>(
-  format: CDeclaration,
   params: Partial<T> = {},
+  format: CDeclaration,
   debug: boolean = false
 ): string {
   const children = format.type === 'union' ? format.children.slice(0, 1) : format.children;
@@ -27,18 +33,26 @@ export function write<T extends WorkAreaParams>(
         }
         buf += (String(val || '')).padEnd(field.stringLength).substr(0, field.stringLength);
       } else if (field.type === 'struct') {
-        buf += write(field, params, debug);
+        buf += write(params, field, debug);
       } else {
-        buf += write(typedefs[field.type], params, debug);
+        buf += write(params, typedefs[field.type], debug);
       }
     }
     return acc + buf;
   }, '').toUpperCase();
 }
 
+/**
+ * @name read
+ * @description Reads a struct from a string
+ * @param str String to read
+ * @param format Struct type definition
+ * @param debug Log details to stdout
+ * @param initialOffset Character offset to start at
+ */
 export function read(
-  format: CDeclaration,
   str: string,
+  format: CDeclaration,
   debug: boolean = false,
   initialOffset: number = 0
 ): WorkAreaParams {
@@ -72,7 +86,7 @@ export function read(
         case 'union': {
           for (let j = 0; j < field.children.length; j++) {
             try {
-              values.push(read(field.children[j], str, debug, offset + (field.children[j].byteLength * i)));
+              values.push(read(str, field.children[j], debug, offset + (field.children[j].byteLength * i)));
             } catch (e) {
               break;
             }
@@ -80,11 +94,11 @@ export function read(
           break;
         }
         case 'struct': {
-          values.push(read(field, str, debug, offset + (field.byteLength * i)));
+          values.push(read(str, field, debug, offset + (field.byteLength * i)));
           break;
         }
         default: {
-          values.push(read(typedefs[field.type], str, debug, offset + (fieldSize * i)));
+          values.push(read(str, typedefs[field.type], debug, offset + (fieldSize * i)));
         }
       }
     }
