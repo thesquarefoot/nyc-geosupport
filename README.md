@@ -13,9 +13,8 @@ For full detailed information on the different functions, fields, and interpreti
 [the Geosupport User Programming Guide](http://www1.nyc.gov/assets/planning/download/pdf/data-maps/open-data/upg.pdf?r=17d),
 which include COW tables in the appendix.
 
-After installation, the binary source data is downloaded (see [download.js](download.js)) from the environment variable `GEOSUPPORT_DATA_URL`. To update the data version, change the URL and unzipped PATH defined in [.env](.env).
+After installation, the binary source data is downloaded (see [download.js](download.js)).
+To update the data version, change the URL and paths defined in [.env](.env).
 
-- keys and typedefs taken from C headers (pac.h)
-- data transforms: keys transformed to camelCase, filler fields ignored, nested work areas flattened
-- should be typed for return keys by function code and extended flags
-
+Input and output formats are as defined by the Geosupport C headers.
+These formats, and TypeScript type definitions, are extracted from the header files directly.

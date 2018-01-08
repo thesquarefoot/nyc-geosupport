@@ -175,7 +175,9 @@ function convertKeysToCamelcase(typedefs: CDeclarationIndex) {
 
 if (!module.parent) {
   require('dotenv').config();
-  const typedefs = parseHeaderFile(resolve(process.env.GEOSUPPORT_DATA_PATH, 'include', 'foruser', 'pac.h'));
+  const headerPath = resolve(process.env.LD_LIBRARY_PATH, '..', 'include', 'foruser', 'pac.h');
+  // TODO: if windows: ${DATA}\Include\pac.h
+  const typedefs = parseHeaderFile(headerPath);
   convertKeysToCamelcase(typedefs);
 
   const outputTS = process.argv.find(arg => arg.toLowerCase() === '--ts');

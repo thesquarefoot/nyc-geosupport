@@ -5,7 +5,6 @@
  * The following environment variables must be set:
  *   LD_LIBRARY_PATH
  *   GEOFILES
- *   GEOSUPPORT_DATA_PATH
  *
  * Environment variables must be set because of interop with the C library.
  * Calling over FFI requires them to be pre-set; they can't be set from here.
@@ -18,7 +17,8 @@
 import { resolve } from 'path';
 import { Library } from 'ffi';
 
-const libPath = resolve(process.env.GEOSUPPORT_DATA_PATH, 'lib', 'libgeo.so');
+const libPath = resolve(process.env.LD_LIBRARY_PATH, 'libgeo.so');
+// TODO: if windows, ${DATA}\Bin\geo.dll
 const lib = Library(libPath, {
   geo: [ 'void', [ 'char *', 'char *' ] ]
 });
