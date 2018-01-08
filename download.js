@@ -4,7 +4,7 @@ const BASE_URL = 'http://www1.nyc.gov/assets/planning/download/zip/data-maps/ope
 const VERSION = '17d';
 
 const platform = require('os').platform();
-const hasData = !require('fs').existsSync('./source-data')
+const hasData = require('fs').existsSync('./source-data');
 
 if (!hasData) {
   if (platform === 'linux') {
