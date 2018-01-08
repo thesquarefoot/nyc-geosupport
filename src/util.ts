@@ -54,6 +54,8 @@ export function reprojectCoordinates(fields: WorkAreaParams): WorkAreaParams {
         } catch (e) {
         }
       }
+    } else if (Array.isArray(fields[key])) {
+      acc[key] = fields[key].map(reprojectCoordinates);
     } else if (typeof fields[key] === 'object') {
       acc[key] = reprojectCoordinates(fields[key]);
     }
