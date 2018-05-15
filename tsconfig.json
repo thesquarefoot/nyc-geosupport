@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "noImplicitAny": true,
+    "preserveConstEnums": true,
+    "target": "es2017",
+    "outDir": "dist",
+    "declaration": true
+  },
+  "include": [
+    "typings/**/*",
+    "src/**/*"
+  ]
+}

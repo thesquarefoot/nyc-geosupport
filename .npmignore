@@ -1,7 +1,5 @@
 source-data
-dist
-tmp
 node_modules
+tmp
 
 .DS_Store
-typedefs.json
