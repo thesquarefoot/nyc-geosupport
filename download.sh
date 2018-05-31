@@ -1,5 +1,6 @@
 #!/bin/bash
-# [ `uname` == "Linux" ] || { echo "Only Linux OS is supported."; exit 1; }
+[ `uname` == "Linux" ] || { echo "Only Linux OS is supported."; exit 1; }
+[ -s "source-data.zip" ] && exit 0;
 
 VERSION=18b
 OUT_DIR=source-data
