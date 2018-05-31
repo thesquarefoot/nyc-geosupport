@@ -32,7 +32,6 @@
   "homepage": "https://github.com/thesquarefoot/nyc-geosupport#readme",
   "dependencies": {
     "dotenv": "^4.0.0",
-    "download": "^6.2.3",
     "express": "^4.16.2",
     "ffi": "git://github.com/node-ffi/node-ffi.git#master",
     "lodash.camelcase": "^4.3.0",
