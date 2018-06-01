@@ -42,6 +42,8 @@ const coordinateKeys = [
 ];
 const isCoordinateKey = (key: string) => coordinateKeys.reduce((acc, reg) => acc || !!reg.test(key), false);
 export function reprojectCoordinates(fields: WorkAreaParams): WorkAreaParams {
+  if (Array.isArray(fields)) return fields.map(reprojectCoordinates);
+  if (typeof fields !== 'object') return fields;
   return Object.keys(fields).reduce((acc, key) => {
     if (Array.isArray(fields[key]) && isCoordinateKey(key)) {
       for (let i = 0; i < fields[key].length; i += 2) {
