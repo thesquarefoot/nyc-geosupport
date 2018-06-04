@@ -1,6 +1,6 @@
 {
   "name": "nyc-geosupport",
-  "version": "2.0.8",
+  "version": "2.0.10",
   "description": "Node bindings for NYC DoITT's geosupport package, providing geocoding capabilities for NYC addresses.",
   "main": "./dist/index.js",
   "types": "./dist/module.d.ts",
@@ -9,7 +9,7 @@
     "prepare": "tsc; npm run extract-typedefs; npm run generate-types",
     "tsc": "tsc",
     "generate-types": "cat typings/*.d.ts dist/index.d.ts > dist/module.d.ts",
-    "postinstall": "node ./download"
+    "postinstall": "./download.sh"
   },
   "repository": {
     "type": "git",
@@ -32,7 +32,6 @@
   "homepage": "https://github.com/thesquarefoot/nyc-geosupport#readme",
   "dependencies": {
     "dotenv": "^4.0.0",
-    "download": "^6.2.3",
     "express": "^4.16.2",
     "ffi": "git://github.com/node-ffi/node-ffi.git#master",
     "lodash.camelcase": "^4.3.0",

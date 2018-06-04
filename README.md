@@ -10,7 +10,7 @@ _Based on the initial work done by
 
 This package is a barebones interface to the Geosupport library bindings, using Character-Only Work Areas (COWs).
 For full detailed information on the different functions, fields, and interpreting their values, see
-[the Geosupport User Programming Guide](http://www1.nyc.gov/assets/planning/download/pdf/data-maps/open-data/upg.pdf?r=17d),
+[the Geosupport User Programming Guide](http://www1.nyc.gov/assets/planning/download/pdf/data-maps/open-data/upg.pdf?r=18b),
 which include COW tables in the appendix.
 
 After installation, the binary source data is downloaded (see [download.js](download.js)).
